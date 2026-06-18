@@ -15,3 +15,16 @@ Several algorithms have been implemented:
 - Floyd-Warshall
 
 ## Compile and deploy
+
+```bash
+cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+cmake --build build
+```
+
+If you are developing:
+
+```bash
+ln -Sf build/compile_commands.json
+```
+
+
