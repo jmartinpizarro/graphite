@@ -43,21 +43,37 @@ public:
   // About using & reference on functions, usually with small items is not
   // really THAT useful. However, here T can be numeric or string - for strings
   // is kind of recommendable. Thats why it is used here
+  //
+  // INFO: return values of some const functions are not being copied. This is
+  // useful for time and computer resources, but it is dependant on the object
+  // graph_t. If it disappears, ERROR. However, our program should never remove
+  // the graph_t object instanciated during its execution - so theorically is
+  // secure.
 
   /*
    * Returns the size - total number of nodes - from a graph
    */
-  int get_size() { return _data.size(); }
+  int &get_size() const { return _data.size(); }
+
+  /*
+   * Returns the origin node saved in the graph instance
+   */
+  const T &get_origin() const { return _origin; }
+
+  /*
+   * Returns the goal node saved in the graph instance
+   */
+  const T &get_goal() const { return _goal; }
 
   /*
    * Returns all the vertex from the entire graph
    */
-  std::vector<T> get_vertex() {
+  std::vector<T> get_vertex() const {
     std::vector<T> keys;
 
     keys.reserve(_data.size());
-    for (auto key : _data) {
-      keys.push_back(key);
+    for (const auto &[vertex, edges] : _data) {
+      keys.push_back(vertex);
     }
 
     return keys;
@@ -68,8 +84,8 @@ public:
    * @param vertex: T -> the idx of the corresponding vertex to get the data
    * from
    */
-  std::vector<edge_t<T, W>> get_edges(T &vertex_idx) {
-    return {_data[vertex_idx]};
+  const std::vector<edge_t<T, W>> &get_edges(T &vertex_idx) const {
+    return {_data.at(vertex_idx)};
   }
 
   /*

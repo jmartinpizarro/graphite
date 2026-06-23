@@ -1,7 +1,10 @@
 // test file for debugging :)
 
+#include <cstdio>
+#include <stdexcept>
 #include <string>
 
+#include <algorithms/dfs.hpp>
 #include <graph/graph.hpp>
 
 int main(int argc, char *argv[]) {
@@ -15,15 +18,26 @@ int main(int argc, char *argv[]) {
     exit(0);
   }
 
-  std::string graph_name(argv[1]);
-
-  // TODO: how do we know the weight is INT? it could be also float, or long, or
-  // double
-  // we are defining here the type of the weight. This should change
   graph_t<std::variant<std::string, int>, int> g;
-  // INFO: "graph1" is considered a char[6], not a string. The
-  // create_graph functions needs a const for this to be able to
-  // compile. Otherwise, create an string
-  g.create_graph(graph_name);
+
+  try {
+    std::string graph_name(argv[1]);
+    g.create_graph(graph_name);
+  } catch (std::runtime_error error) {
+    printf("[graphite_main] :: An error has ocurred when populating the graph: "
+           "\n\t%s\n",
+           error.what());
+  }
+
+  std::vector<std::variant<std::string, int>> dfs_result = dfs(g);
+
+  for (const auto node : dfs_result) {
+    std::visit(
+        [](const auto &value) {
+          std::cout << value << "-" << typeid(value).name() << "\n";
+        },
+        node);
+  }
+
   return 0;
 }
