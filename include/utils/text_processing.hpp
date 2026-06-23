@@ -43,7 +43,11 @@ template <typename T> std::vector<T> split_line(const std::string &line) {
       int value;
       auto [ptr, ec] =
           std::from_chars(token.data(), token.data() + token.size(), value);
-      if (ec == std::errc{}) {
+      // std::from_chars works like shit. It is needed no errors and also to
+      // check that the pointer size is the same as the one from the token
+      // (string). If the ptr is smaller, this means that the token has not
+      // being consumed entirely ("9i" -> 9 + "i")
+      if (ec == std::errc{} && ptr == token.data() + token.size()) {
         results.emplace_back(value);
       } else {
         // REMEMBER: string_view is temporal! it is necessary to transform it

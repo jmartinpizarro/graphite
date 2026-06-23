@@ -8,6 +8,7 @@
 #include <algorithms/bfs.hpp>
 #include <algorithms/dfs.hpp>
 #include <graph/graph.hpp>
+#include <variant>
 
 int main(int argc, char *argv[]) {
 
@@ -35,22 +36,14 @@ int main(int argc, char *argv[]) {
   std::vector<std::variant<std::string, int>> dfs_result = dfs(g);
 
   for (const auto node : dfs_result) {
-    std::visit(
-        [](const auto &value) {
-          std::cout << value << "-" << typeid(value).name() << "\n";
-        },
-        node);
+    std::visit([](const auto &value) { std::cout << value << "\n"; }, node);
   }
 
   std::cout << "Executing the BFS algorithm\n";
   std::vector<std::variant<std::string, int>> bfs_result = bfs(g);
 
   for (const auto node : bfs_result) {
-    std::visit(
-        [](const auto &value) {
-          std::cout << value << "-" << typeid(value).name() << "\n";
-        },
-        node);
+    std::visit([](const auto &value) { std::cout << value << "\n"; }, node);
   }
 
   return 0;
