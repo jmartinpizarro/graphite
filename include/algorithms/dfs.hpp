@@ -6,10 +6,8 @@
 #define DFS
 
 #include <deque>
-#include <iostream>
 #include <ranges>
 #include <unordered_map>
-#include <variant>
 #include <vector>
 
 #include <graph/graph.hpp>
@@ -18,6 +16,11 @@
 
 template <graphite_concepts::is_node_type NodeType,
           graphite_concepts::is_numeric NumericalWeight>
+/*
+ * DFS algorithm
+ * @param graph
+ * @returns vector with the node path
+ */
 std::vector<NodeType> dfs(const graph_t<NodeType, NumericalWeight> &g) {
 
   std::vector<NodeType> results;

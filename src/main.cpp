@@ -1,9 +1,11 @@
 // test file for debugging :)
 
 #include <cstdio>
+#include <iostream>
 #include <stdexcept>
 #include <string>
 
+#include <algorithms/bfs.hpp>
 #include <algorithms/dfs.hpp>
 #include <graph/graph.hpp>
 
@@ -29,9 +31,21 @@ int main(int argc, char *argv[]) {
            error.what());
   }
 
+  std::cout << "Executing the DFS algorithm\n";
   std::vector<std::variant<std::string, int>> dfs_result = dfs(g);
 
   for (const auto node : dfs_result) {
+    std::visit(
+        [](const auto &value) {
+          std::cout << value << "-" << typeid(value).name() << "\n";
+        },
+        node);
+  }
+
+  std::cout << "Executing the BFS algorithm\n";
+  std::vector<std::variant<std::string, int>> bfs_result = bfs(g);
+
+  for (const auto node : bfs_result) {
     std::visit(
         [](const auto &value) {
           std::cout << value << "-" << typeid(value).name() << "\n";
