@@ -7,6 +7,7 @@
 
 #include <algorithms/bfs.hpp>
 #include <algorithms/dfs.hpp>
+#include <algorithms/dijkstra.hpp>
 #include <graph/graph.hpp>
 #include <variant>
 
@@ -15,13 +16,16 @@ int main(int argc, char *argv[]) {
   // INFO: at the moment, the programs accepts one parameter
   // domain_name: str -> the NAME - not the route - of the graph
 
+  // helper lambda for printing variants variables
+  auto print_variant = [](const auto &value) { std::cout << value; };
+
   if (argc != 2) {
     printf("[graphite_main] :: The program needs one parameter: the name of "
            "the graph - not the route");
     exit(0);
   }
 
-  graph_t<std::variant<std::string, int>, int> g;
+  graph_t<std::variant<std::string, int>, double> g;
 
   try {
     std::string graph_name(argv[1]);
@@ -32,19 +36,7 @@ int main(int argc, char *argv[]) {
            error.what());
   }
 
-  std::cout << "Executing the DFS algorithm\n";
-  std::vector<std::variant<std::string, int>> dfs_result = dfs(g);
-
-  for (const auto node : dfs_result) {
-    std::visit([](const auto &value) { std::cout << value << "\n"; }, node);
-  }
-
-  std::cout << "Executing the BFS algorithm\n";
-  std::vector<std::variant<std::string, int>> bfs_result = bfs(g);
-
-  for (const auto node : bfs_result) {
-    std::visit([](const auto &value) { std::cout << value << "\n"; }, node);
-  }
+  // do something
 
   return 0;
 }
