@@ -5,6 +5,8 @@
 #ifndef GRAPH_T
 #define GRAPH_T
 
+#pragma once
+
 #include "utils/concepts/node_concepts.hpp"
 #include <format>
 #include <fstream>
@@ -201,7 +203,7 @@ public:
               wline));
         }
         const std::vector<W> wresults = split_line<W>(wline.c_str());
-        if (wresults.size() != length - 1) {
+        if (wresults.size() != static_cast<double>(length - 1)) {
           throw std::runtime_error(
               std::format("[graph_t] :: The .weights file contains an extra "
                           "not desired weight in line {}\n",

@@ -6,6 +6,8 @@
 #ifndef TEXT_PROCESSING
 #define TEXT_PROCESSING
 
+#pragma once
+
 #include <charconv>
 #include <concepts>
 #include <ranges>

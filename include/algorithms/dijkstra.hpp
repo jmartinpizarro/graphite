@@ -5,6 +5,8 @@
 #ifndef DIJKSTRA
 #define DIJKSTRA
 
+#pragma once
+
 #include <limits>
 #include <tuple>
 #include <unordered_map>

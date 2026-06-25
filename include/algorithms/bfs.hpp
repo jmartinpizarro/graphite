@@ -5,6 +5,8 @@
 #ifndef BFS
 #define BFS
 
+#pragma once
+
 #include <graph/graph.hpp>
 #include <utils/concepts/node_concepts.hpp>
 #include <utils/concepts/numerical_concepts.hpp>

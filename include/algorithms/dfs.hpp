@@ -5,6 +5,8 @@
 #ifndef DFS
 #define DFS
 
+#pragma once
+
 #include <deque>
 #include <ranges>
 #include <unordered_map>

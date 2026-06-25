@@ -5,6 +5,8 @@
 #ifndef PRIM
 #define PRIM
 
+#pragma once
+
 #include <unordered_map>
 #include <vector>
 
