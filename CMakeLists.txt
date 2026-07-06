@@ -66,5 +66,7 @@ if (GRAPHITE_BUILD_TESTS)
   )
 
   include(GoogleTest)
-  gtest_discover_tests(test_graph)
+  gtest_discover_tests(test_graph
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+  )
 endif()

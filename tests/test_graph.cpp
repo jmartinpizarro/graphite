@@ -53,6 +53,5 @@ TEST(GRAPH_POPULATION, WEIGHTS_VARIANT) {
   g.create_graph(GRAPH_NAME);
 
   const int GRAPH_SIZE = g.get_size();
-  cout << GRAPH_SIZE << "\n";
   EXPECT_EQ(NODES_TO_INSERTED, GRAPH_SIZE);
 }
