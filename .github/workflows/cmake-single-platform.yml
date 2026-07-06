@@ -1,0 +1,33 @@
+name: Graphite CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  # Release, Debug, RelWithDebInfo, etc.
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    # theorically, the build command should work for every platform. Theorically...
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: CMake Config
+      # configure the cmake build for the PROJECT/build folder with the previously defined build type
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+    - name: Build
+      # build the program
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+    - name: Test
+      working-directory: ${{github.workspace}}/build
+      # Execute tests defined by the CMake configuration.
+      run: ctest -C ${{env.BUILD_TYPE}}
+
