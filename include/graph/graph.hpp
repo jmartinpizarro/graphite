@@ -55,7 +55,7 @@ public:
   /*
    * Returns the size - total number of nodes - from a graph
    */
-  int &get_size() const { return _data.size(); }
+  std::size_t get_size() const { return _data.size(); }
 
   /*
    * Returns the origin node saved in the graph instance
@@ -127,7 +127,7 @@ public:
    */
   void create_graph(const std::string &graph_name) {
     std::string fline, wline;
-    const std::regex regex_weights(R"(^\d+(\s+\d+)*$)");
+    const std::regex regex_weights(R"(^\d+(\.\d+)?(\s+\d+(\.\d+)?)*$)");
     const std::regex regex_simple_word(
         R"(^\S+$)"); // for processing single words in a line
     const std::regex regex_data(R"(^(\S+\s+){2,}\S+$)");

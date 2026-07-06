@@ -7,8 +7,19 @@ project(graphite
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON) 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# build with GoogleTest for testing the project 
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+
+# lib definition
 add_library(graphite INTERFACE)
 add_library(graphite::graphite ALIAS graphite)
 
@@ -30,8 +41,24 @@ target_compile_options(graphite INTERFACE
 
 target_compile_features(graphite INTERFACE cxx_std_23)
 
+# binary for execution
 add_executable(graphite_app 
   src/main.cpp
 )
 
 target_link_libraries(graphite_app PRIVATE graphite::graphite)
+
+# binary for tests??
+add_executable(test_graph
+  tests/test_graph.cpp
+)
+
+target_link_libraries(
+  test_graph
+  GTest::gtest
+  GTest::gtest_main
+  graphite::graphite
+)
+
+include(GoogleTest)
+gtest_discover_tests(test_graph)
