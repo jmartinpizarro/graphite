@@ -55,3 +55,33 @@ TEST(GRAPH_POPULATION, WEIGHTS_VARIANT) {
   const int GRAPH_SIZE = g.get_size();
   EXPECT_EQ(NODES_TO_INSERTED, GRAPH_SIZE);
 }
+
+// Checks that every node has 2 edges - as it is defined by the .map file for
+// int nodes
+TEST(GRAPH_POPULATION, EDGES_ASSIGNED_INT) {
+  string GRAPH_NAME = "graph1";
+  int EDGES_FOR_EVERY_NODE = 2;
+  graph_t<int, int> g;
+  g.create_graph(GRAPH_NAME);
+
+  vector<int> nodes = g.get_vertex();
+  for (const auto &key : nodes) {
+    vector<edge_t<int, int>> edges = g.get_edges(key);
+    ASSERT_EQ(edges.size(), EDGES_FOR_EVERY_NODE);
+  }
+}
+
+// Checks that every node has 2 edges - as it is defined by the .map file for
+// variant types nodes
+TEST(GRAPH_POPULATION, EDGES_ASSIGNED_VARIANT) {
+  string GRAPH_NAME = "graph2";
+  int EDGES_FOR_EVERY_NODE = 2;
+  graph_t<variant<string, int>, int> g;
+  g.create_graph(GRAPH_NAME);
+
+  vector<variant<string, int>> nodes = g.get_vertex();
+  for (const auto &key : nodes) {
+    vector<edge_t<variant<string, int>, int>> edges = g.get_edges(key);
+    ASSERT_EQ(edges.size(), EDGES_FOR_EVERY_NODE);
+  }
+}

@@ -86,7 +86,7 @@ public:
    * @param vertex: T -> the idx of the corresponding vertex to get the data
    * from
    */
-  const std::vector<edge_t<T, W>> &get_edges(T &vertex_idx) const {
+  std::vector<edge_t<T, W>> get_edges(const T &vertex_idx) const {
     return {_data.at(vertex_idx)};
   }
 
