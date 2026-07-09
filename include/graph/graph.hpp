@@ -130,7 +130,7 @@ public:
     const std::regex regex_weights(R"(^\d+(\.\d+)?(\s+\d+(\.\d+)?)*$)");
     const std::regex regex_simple_word(
         R"(^\S+$)"); // for processing single words in a line
-    const std::regex regex_data(R"(^(\S+\s+){2,}\S+$)");
+    const std::regex regex_data(R"(^(\S+\s+){1,}\S+$)");
     const std::string MAP_ROUTE = "domains/graphs/";
     const std::string WEIGHTS_ROUTE = "domains/weights/";
 
@@ -152,11 +152,11 @@ public:
       throw std::runtime_error(std::format(
           "[graph_t] :: The file {} could not be opened.", weights_file_route));
     }
-    int fcline = 0;
+    int fcline = 1;
     bool match;
     T origin, goal;
     while (getline(f, fline)) {
-      if (fcline <= 2) {
+      if (fcline <= 3) {
         bool match = std::regex_match(fline, regex_simple_word);
         if (!match) {
           throw std::runtime_error(std::format(
@@ -165,13 +165,13 @@ public:
               fcline));
         }
         switch (fcline) {
-        case 0:
+        case 1:
           set_nnodes(std::stoi(fline));
           break;
-        case 1:
+        case 2:
           origin = split_line<T>(fline)[0];
           break;
-        case 2:
+        case 3:
           goal = split_line<T>(fline)[0];
           set_origin_goal_nodes(origin, goal);
           break;

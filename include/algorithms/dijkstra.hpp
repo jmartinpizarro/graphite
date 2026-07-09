@@ -8,6 +8,7 @@
 #pragma once
 
 #include <limits>
+#include <optional>
 #include <tuple>
 #include <unordered_map>
 #include <vector>
@@ -20,11 +21,14 @@
  * Dijkstra Algorithm for obtaining the minimum cost path from
  * an origin node
  * @param g Graph
+ * @param T node. It is possible that it might be needed to execute the
+ * algorithm from a different origin node wrt the graph origin node
  * @returns a tuple with the dist and prev maps
  */
 template <graphite_concepts::is_node_type T, graphite_concepts::is_numeric W>
 std::tuple<std::unordered_map<T, W>, std::unordered_map<T, T>>
-dijkstra(const graph_t<T, W> &g) {
+dijkstra(const graph_t<T, W> &g,
+         const std::optional<T> origin_node = std::nullopt) {
 
   std::vector<T> open, result;
   std::unordered_map<T, W> dist;
@@ -32,11 +36,20 @@ dijkstra(const graph_t<T, W> &g) {
 
   for (const auto &node : g.get_vertex()) {
     prev[node] = T{};
-    dist[node] = std::numeric_limits<W>::infinity();
+    // initially i used infinity() but it is only useful for doubles... For ints
+    // and numbers with less precission, T{} = 0
+    dist[node] = std::numeric_limits<W>::max();
     open.push_back(node);
   }
 
-  dist[g.get_origin()] = 0;
+  T origin;
+  if (origin_node.has_value()) {
+    origin = origin_node.value();
+  } else {
+    origin = g.get_origin();
+  }
+
+  dist[origin] = 0;
 
   while (open.size() != 0) {
 
@@ -51,6 +64,13 @@ dijkstra(const graph_t<T, W> &g) {
         min_node = node;
         min_value = dist[node];
       }
+    }
+
+    // if there are non-recheable nodes, an error will leak in the next lines.
+    // max() + X = overflow. So, if we arrive to a point where we are expanding
+    // nodes whose min_value is infinity, we have to pass them
+    if (min_value == std::numeric_limits<W>::max()) {
+      break;
     }
 
     auto it = std::ranges::find(open, min_node);

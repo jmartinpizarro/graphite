@@ -54,19 +54,20 @@ if (GRAPHITE_BUILD_TESTS)
   enable_testing()
 
   # binary for tests??
-  add_executable(test_graph
+  add_executable(test_graphite
   tests/test_graph.cpp
+  tests/test_dijkstra.cpp
   )
 
   target_link_libraries(
-  test_graph
+  test_graphite
   GTest::gtest
   GTest::gtest_main
   graphite::graphite
   )
 
   include(GoogleTest)
-  gtest_discover_tests(test_graph
+  gtest_discover_tests(test_graphite
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   )
 endif()
