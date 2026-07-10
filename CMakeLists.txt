@@ -53,10 +53,11 @@ if (GRAPHITE_BUILD_TESTS)
 
   enable_testing()
 
-  # binary for tests??
+  # binary for tests
   add_executable(test_graphite
   tests/test_graph.cpp
   tests/test_dijkstra.cpp
+  tests/test_dfs.cpp
   )
 
   target_link_libraries(

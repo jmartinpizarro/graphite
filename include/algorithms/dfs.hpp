@@ -8,6 +8,7 @@
 #pragma once
 
 #include <deque>
+#include <optional>
 #include <ranges>
 #include <unordered_map>
 #include <vector>
@@ -23,7 +24,8 @@ template <graphite_concepts::is_node_type NodeType,
  * @param graph
  * @returns vector with the node path
  */
-std::vector<NodeType> dfs(const graph_t<NodeType, NumericalWeight> &g) {
+std::vector<NodeType> dfs(const graph_t<NodeType, NumericalWeight> &g,
+                          std::optional<NodeType> origin = std::nullopt) {
 
   std::vector<NodeType> results;
 
@@ -39,7 +41,13 @@ std::vector<NodeType> dfs(const graph_t<NodeType, NumericalWeight> &g) {
   // when starting the algorithm, an origin node must be chosen. By default, no
   // origin node is given. In that case, the graph will retrieve the origin node
   // saved in its own instance
-  NodeType origin_node = g.get_origin();
+  NodeType origin_node;
+  if (origin.has_value()) {
+    origin_node = origin.value();
+  } else {
+    origin_node = g.get_origin();
+  }
+
   open.push_back(origin_node);
 
   while (open.size() != 0) {

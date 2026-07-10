@@ -23,8 +23,8 @@ TEST(DIJKSTRA_SUITE, DIJKSTRA_RETURN_TYPES) {
   auto res = dijkstra(g);
 
   static_assert(
-      std::is_same_v<decltype(res), std::tuple<std::unordered_map<int, int>,
-                                               std::unordered_map<int, int>>>,
+      is_same_v<decltype(res),
+                tuple<unordered_map<int, int>, unordered_map<int, int>>>,
       "Dijkstra must return a tuple with (dist, prev) unordered maps");
 
   ASSERT_EQ(get<0>(res).size(), 10); // dist size == 10, one per node
