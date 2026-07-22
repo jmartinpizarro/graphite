@@ -1,6 +1,7 @@
 // test file for debugging :)
 
 #include <cstdio>
+#include <print>
 #include <stdexcept>
 #include <string>
 
@@ -18,7 +19,7 @@ int main(int argc, char *argv[]) {
     exit(0);
   }
 
-  graph_t<std::variant<std::string, int>, double> g;
+  graph_t<int, int> g;
 
   try {
     std::string graph_name(argv[1]);
@@ -29,7 +30,13 @@ int main(int argc, char *argv[]) {
            error.what());
   }
 
-  // do something
+  // a_star
+  Astar_Solver<int, int> solver{g.get_origin(), g.get_goal(), g};
+  std::vector<int> path = solver.a_star();
+
+  for (const auto &node : path) {
+    std::printf("%d \n", node);
+  }
 
   return 0;
 }
