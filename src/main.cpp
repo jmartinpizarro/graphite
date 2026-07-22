@@ -1,12 +1,10 @@
 // test file for debugging :)
 
 #include <cstdio>
-#include <print>
 #include <stdexcept>
 #include <string>
 
 #include <graph.hpp>
-#include <variant>
 
 int main(int argc, char *argv[]) {
 
