@@ -5,6 +5,7 @@
 #include <string>
 
 #include <graph.hpp>
+#include <unordered_map>
 
 int main(int argc, char *argv[]) {
 
@@ -34,6 +35,12 @@ int main(int argc, char *argv[]) {
 
   for (const auto &node : path) {
     std::printf("%d \n", node);
+  }
+
+  // prim
+  std::unordered_map<int, edge_t<int, int>> prim_sol = prim(g);
+  for (const auto &pair : prim_sol) {
+    printf("%d - %d\n", pair.first, pair.second._weight);
   }
 
   return 0;
