@@ -1,5 +1,6 @@
 // test file for debugging :)
 
+#include "algorithms/floyd_warshall.hpp"
 #include <cstdio>
 #include <stdexcept>
 #include <string>
@@ -43,5 +44,12 @@ int main(int argc, char *argv[]) {
     printf("%d - %d\n", pair.first, pair.second._weight);
   }
 
+  auto warshall_res = warshall(g);
+  for (int i = 0; i < static_cast<int>(g.get_size()); i++) {
+    for (int j = 0; j < static_cast<int>(g.get_size()); j++) {
+      printf("From %d to %d to optimal cost is: %d\n", i + 1, j + 1,
+             warshall_res[i][j]);
+    }
+  }
   return 0;
 }

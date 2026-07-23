@@ -36,7 +36,6 @@ Several algorithms have been implemented:
 - Dijkstra
 - A*
 - Prim
-- Kruskal
 - Floyd-Warshall
 
 ## Compile and deploy
