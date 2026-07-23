@@ -13,7 +13,6 @@
 #include <algorithm>
 #include <cstdint>
 #include <graph/graph.hpp>
-#include <iostream>
 #include <limits>
 #include <unordered_map>
 #include <utils/concepts/node_concepts.hpp>
