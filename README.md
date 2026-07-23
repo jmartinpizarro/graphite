@@ -18,14 +18,14 @@
   </a>
 
   <a href="https://github.com/jmartinpizarro/graphite/releases">
-    <img src="https://img.shields.io/github/v/release/jmartinpizarro/graphite?style=flat-square&color=orange" alt="Release">
-  </a>
+    <img src="https://img.shields.io/github/v/release/jmartinpizarro/graphite?include_prereleases&style=flat-square&color=orange" alt="Release">
+</a>
 </p>
 
 Graphite is a generic programming-based library for working with and processing graphs.
 
->[!DANGER]
->Do not use this lib in profesional projects. If you do, its your fault, not mine :)
+> [!CAUTION]
+> Do not use this library in professional projects. If you do, it's your fault, not mine :)
 
 ## Algorithms
 
